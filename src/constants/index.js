@@ -23,5 +23,7 @@ export const ROUTES = {
   ORDERS: '/orders',
   HISTORY: '/history',
   PROFILE: '/profile',
-  PAYMENT: '/ttF'
+  PAYMENT: '/ttF',
+  LOGIN:'/login',
+  SIGNUP:'/signup'
 }; 
