@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, Heart, Search, ShoppingBag, Star, Utensils } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { BottomNav } from "../components/BottomNav";
 import { useParams } from "react-router-dom";
 import { restaurants } from "../../dummydata/restaurants";
+import { TopNav } from "../components/TopNav";
 
-const RestaurantDetails = () => {
-    const navigate = useNavigate()
+const RestaurantDetails = ({count, addAm}) => {
   const [visibleItems, setVisibleItems] = useState(4);
   const [minPrice, setMinPrice] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -20,34 +19,6 @@ const RestaurantDetails = () => {
     
   }, [])
 
-  const menuItems = [
-    {
-      id: 1,
-      name: "Chicken & Chips",
-      price: 4500,
-      description: "Crispy fried chicken served with seasoned chips",
-      image: "/api/placeholder/400/400",
-      category: "Main Course",
-    },
-    {
-      id: 2,
-      name: "Jollof Rice Special",
-      price: 3800,
-      description: "Spicy rice dish served with chicken and plantain",
-      image: "/api/placeholder/400/400",
-      category: "Main Course",
-    },
-    // Additional items to demonstrate scrolling
-    ...Array.from({ length: 8 }, (_, i) => ({
-      id: i + 3,
-      name: "Coca Cola",
-      price: 3800,
-      description: "Refreshing cola drink",
-      image: "/api/placeholder/400/400",
-      category: "Beverages",
-    }))
-  ];
-
   const priceRanges = [
     { label: "All", value: 0 },
     { label: "Under ₦1000", value: 1000 },
@@ -58,35 +29,38 @@ const RestaurantDetails = () => {
 
   const formatPrice = (price) => `₦${price.toLocaleString("en-NG")}`;
 
-  const handleViewMore = () => {
-    setVisibleItems((prev) => prev + 4);
-  };
-
-  const filteredItems = menuItems.filter(
+  const filteredItems = restaurant?.menuItems?.filter(
     (item) =>
       (minPrice === 0 || item.price <= minPrice) &&
       (selectedCategory === "All" || item.category === selectedCategory)
   );
 
+  const changeOrderStatus = (idx, newStatus) => {
+    console.log(restaurant.menuItems);
+  
+    // Find the menu item to update
+    const filteredOrder = restaurant.menuItems.find((menuItem) => menuItem.id === idx);
+  
+    // Update the order status
+    if (filteredOrder) {
+      setRestaurant((prev) => ({
+        ...prev,
+        menuItems: prev.menuItems.map((menuItem) =>
+          menuItem.id === idx ? { ...menuItem, orderd: newStatus } : menuItem
+        ),
+      }));
+    }
+  
+    console.log("orderId", filteredOrder?.id);
+    console.log("idx", idx);
+    console.log("newStatus", newStatus);
+  };
 
   return (
     <>
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 bg-white z-10">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between p-4">
-            <div className="flex items-center gap-4">
-              <ArrowLeft className="text-gray-700 cursor-pointer" size={24} onClick={()=> navigate("/") }/>
-              <h1 className="text-xl font-semibold">Restaurant Details</h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <Heart className="text-gray-700 cursor-pointer" size={24} />
-              <ShoppingBag className="text-gray-700 cursor-pointer" size={24} />
-            </div>
-          </div>
-        </div>
-      </div>
+     <TopNav showBack={true} count={count}/>
 
       {/* Main Content */}
       <div className="pt-16 pb-20 max-w-4xl mx-auto">
@@ -168,8 +142,22 @@ const RestaurantDetails = () => {
                 <p className="font-medium text-orange-500 mt-1">
                   {formatPrice(item.price)}
                 </p>
-                <button className="bg-orange-500 p-2 mt-2 text-white font-semibold rounded-md w-full flex items-center justify-center gap-2">
-                  <span>Add to Cart</span>
+                <button 
+                  onClick={() => {
+                    if (item.orderd) {
+                      addAm(-1); // Decrease count when removing
+                    } else {
+                      addAm(1); // Increase count when adding
+                    }
+                    changeOrderStatus(item.id, !item.orderd);
+                  }} 
+                  className={`p-2 mt-2 text-white font-semibold rounded-md w-full flex items-center justify-center gap-2 transition-colors ${
+                    item.orderd 
+                      ? "bg-red-500 hover:bg-red-600" 
+                      : "bg-orange-500 hover:bg-orange-600"
+                  }`}
+                >
+                  <span>{item.orderd ? "Remove from Order" : "Add to Order"}</span>
                   <Utensils size={15} />
                 </button>
               </div>

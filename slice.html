@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin API Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-8">Admin API Dashboard</h1>
+
+    <!-- Token and Base URL Input -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">API Configuration</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Base URL</label>
+          <input type="text" id="baseUrl" value="https://api.attendance.finnetexh.tech" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Token</label>
+          <input type="text" id="token" placeholder="Enter your token" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Course -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">Create Course</h2>
+      <form id="createCourseForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" name="name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Department ID</label>
+          <input type="text" name="department_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Head Lecturer ID</label>
+          <input type="text" name="head_lecturer_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create Course</button>
+      </form>
+    </div>
+
+    <!-- List Students in Classroom -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">List Students in Classroom</h2>
+      <form id="listStudentsForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Classroom ID</label>
+          <input type="text" name="classroom_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">List Students</button>
+      </form>
+      <pre id="listStudentsResponse" class="mt-4 p-4 bg-gray-50 rounded-md text-sm"></pre>
+    </div>
+
+    <!-- Enroll Student in Classroom -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">Enroll Student in Classroom</h2>
+      <form id="enrollStudentForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Classroom ID</label>
+          <input type="text" name="classroom_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Student ID</label>
+          <input type="text" name="student_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Enroll Student</button>
+      </form>
+    </div>
+
+    <!-- Remove Student from Classroom -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">Remove Student from Classroom</h2>
+      <form id="removeStudentForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Classroom ID</label>
+          <input type="text" name="classroom_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Student ID</label>
+          <input type="text" name="student_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Remove Student</button>
+      </form>
+    </div>
+
+    <!-- List Lecturers in Classroom -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">List Lecturers in Classroom</h2>
+      <form id="listLecturersForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Classroom ID</label>
+          <input type="text" name="classroom_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">List Lecturers</button>
+      </form>
+      <pre id="listLecturersResponse" class="mt-4 p-4 bg-gray-50 rounded-md text-sm"></pre>
+    </div>
+
+    <!-- Assign Lecturer to Classroom -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">Assign Lecturer to Classroom</h2>
+      <form id="assignLecturerForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Classroom ID</label>
+          <input type="text" name="classroom_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Lecturer ID</label>
+          <input type="text" name="lecturer_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Assign Lecturer</button>
+      </form>
+    </div>
+
+    <!-- Remove Lecturer from Classroom -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">Remove Lecturer from Classroom</h2>
+      <form id="removeLecturerForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Classroom ID</label>
+          <input type="text" name="classroom_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Lecturer ID</label>
+          <input type="text" name="lecturer_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Remove Lecturer</button>
+      </form>
+    </div>
+
+    <!-- Create Lecturer -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-semibold mb-4">Create Lecturer</h2>
+      <form id="createLecturerForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" name="email" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">First Name</label>
+          <input type="text" name="first_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Last Name</label>
+          <input type="text" name="last_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" name="password" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Staff ID</label>
+          <input type="text" name="staff_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Faculty ID</label>
+          <input type="text" name="faculty_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Department ID</label>
+          <input type="text" name="department_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input type="text" name="phone_number" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Date of Birth</label>
+          <input type="date" name="date_of_birth" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create Lecturer</button>
+      </form>
+    </div>
+
+    <!-- Response Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">API Response</h2>
+      <pre id="apiResponse" class="p-4 bg-gray-50 rounded-md text-sm"></pre>
+    </div>
+  </div>
+
+  <script>
+    const baseUrlInput = document.getElementById('baseUrl');
+    const tokenInput = document.getElementById('token');
+    const apiResponse = document.getElementById('apiResponse');
+
+    // Helper function to make API calls
+    async function makeApiCall(endpoint, method, body = null) {
+      const url = `${baseUrlInput.value}${endpoint}`;
+      const headers = {
+        'Authorization': `Bearer ${tokenInput.value}`,
+        'Content-Type': 'application/json'
+      };
+      const options = {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null
+      };
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        apiResponse.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        apiResponse.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Create Course
+    document.getElementById('createCourseForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const body = Object.fromEntries(formData.entries());
+      makeApiCall('/api/v1/admin/course/', 'POST', body);
+    });
+
+    // List Students in Classroom
+    document.getElementById('listStudentsForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const classroomId = e.target.classroom_id.value;
+      makeApiCall(`/api/v1/admin/course/${classroomId}/students`, 'GET');
+    });
+
+    // Enroll Student in Classroom
+    document.getElementById('enrollStudentForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const classroomId = e.target.classroom_id.value;
+      const studentId = e.target.student_id.value;
+      makeApiCall(`/api/v1/admin/course/${classroomId}/students/${studentId}`, 'POST');
+    });
+
+    // Remove Student from Classroom
+    document.getElementById('removeStudentForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const classroomId = e.target.classroom_id.value;
+      const studentId = e.target.student_id.value;
+      makeApiCall(`/api/v1/admin/course/${classroomId}/students/${studentId}`, 'DELETE');
+    });
+
+    // List Lecturers in Classroom
+    document.getElementById('listLecturersForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const classroomId = e.target.classroom_id.value;
+      makeApiCall(`/api/v1/admin/course/${classroomId}/lecturers`, 'GET');
+    });
+
+    // Assign Lecturer to Classroom
+    document.getElementById('assignLecturerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const classroomId = e.target.classroom_id.value;
+      const lecturerId = e.target.lecturer_id.value;
+      makeApiCall(`/api/v1/admin/course/${classroomId}/lecturers/${lecturerId}`, 'POST');
+    });
+
+    // Remove Lecturer from Classroom
+    document.getElementById('removeLecturerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const classroomId = e.target.classroom_id.value;
+      const lecturerId = e.target.lecturer_id.value;
+      makeApiCall(`/api/v1/admin/course/${classroomId}/lecturers/${lecturerId}`, 'DELETE');
+    });
+
+    // Create Lecturer
+    document.getElementById('createLecturerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const body = {
+        user_data: {
+          email: formData.get('email'),
+          first_name: formData.get('first_name'),
+          last_name: formData.get('last_name'),
+          password: formData.get('password')
+        },
+        lecturer_data: {
+          staff_id: formData.get('staff_id'),
+          faculty_id: formData.get('faculty_id'),
+          department_id: formData.get('department_id'),
+          phone_number: formData.get('phone_number'),
+          date_of_birth: formData.get('date_of_birth')
+        }
+      };
+      makeApiCall('/api/v1/admin/lecturer/', 'POST', body);
+    });
+  </script>
+</body>
+</html>

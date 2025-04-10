@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ShoppingBag, Home, User, Heart } from 'lucide-react';
+import { ShoppingBag, Home, User, ChevronRight } from 'lucide-react';
 import RestaurantModal from './restuarantModal';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,16 +12,13 @@ const RestaurantApp = () => {
   const categories = [
     { id: 'all', name: 'All', isActive: true },
     { id: 'local', name: 'Local', isActive: false },
-    // { id: 'chinese', name: 'Chinese', isActive: false },
     { id: 'fastfood', name: 'Fast Food', isActive: false },
     { id: 'african', name: 'Sharp Snacks', isActive: false },
-    // { id: 'continental', name: 'Continental', isActive: false },
   ];
 
   const handleRestaurantClick = (restaurant) => {
     navigate(`/restaurant/${restaurant.id}`);
   };
-
 
   const popularDishes = [
     {
@@ -68,21 +65,22 @@ const RestaurantApp = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <TopNav />
+      <TopNav showBack={false}/>
 
       {/* Main Content */}
       <main className="pt-20 pb-20 px-4 max-w-4xl mx-auto">
         {/* Categories */}
-        <div className="flex gap-4 overflow-x-auto py-4">
+        <div className="flex gap-3 overflow-x-auto py-2 scrollbar-hide">
           {categories.map((category) => (
             <button
               key={category.id}
-              className={`px-6 py-2 rounded-full whitespace-nowrap ${category.isActive
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-white text-gray-700 hover:bg-orange-50'
-                }`}
+              className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all duration-200 ${
+                category.isActive
+                  ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
+                  : 'bg-white text-gray-700 hover:bg-orange-50 border border-gray-100'
+              }`}
             >
               {category.name}
             </button>
@@ -90,16 +88,21 @@ const RestaurantApp = () => {
         </div>
 
         {/* Featured Section */}
-        <div className="my-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Restaurants near you</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="my-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">Restaurants near you</h2>
+            <button className="text-orange-500 text-sm font-medium flex items-center gap-1">
+              View All <ChevronRight size={16} />
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {restaurants.map((restaurant) => (
               <div
                 key={restaurant.id}
-                className="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
+                className="bg-white rounded-2xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200"
                 onClick={() => handleRestaurantClick(restaurant)}
               >
-                <div className="h-48 bg-gray-200">
+                <div className="h-52 bg-gray-200">
                   <img
                     src={restaurant.image}
                     alt={restaurant.name}
@@ -109,11 +112,13 @@ const RestaurantApp = () => {
                 <div className="p-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-800">{restaurant.name}</h3>
-
+                    <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs font-medium">
+                      Open
+                    </span>
                   </div>
                   <p className="text-gray-600 text-sm mt-1">{restaurant.priceRange}</p>
-                  <div className="flex items-center mt-2">
-                    <span className="bg-orange-100 text-orange-500 px-2 py-1 rounded-full text-sm">
+                  <div className="flex items-center mt-3">
+                    <span className="bg-orange-100 text-orange-500 px-2.5 py-1 rounded-full text-sm font-medium">
                       {restaurant.rating} ★
                     </span>
                     <span className="text-gray-500 text-sm ml-2">({restaurant.reviews}+ reviews)</span>
@@ -125,16 +130,17 @@ const RestaurantApp = () => {
         </div>
 
         {/* Popular Dishes */}
-        <div className="my-6">
-          <div className='flex justify-between '>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Popular Dishes</h2>
-            <h2 className="text-sm  text-orange-500 mb-4">View More</h2>
-
+        <div className="my-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">Popular Dishes</h2>
+            <button className="text-orange-500 text-sm font-medium flex items-center gap-1">
+              View All <ChevronRight size={16} />
+            </button>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {popularDishes.map((dish) => (
-              <div key={dish.id} className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="h-32 bg-gray-200">
+              <div key={dish.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+                <div className="h-36 bg-gray-200">
                   <img
                     src={dish.image}
                     alt={dish.name}
@@ -142,9 +148,9 @@ const RestaurantApp = () => {
                   />
                 </div>
                 <div className="p-3">
-                  <h3 className="font-medium text-gray-800">{dish.name}</h3>
-                  <p className="text-gray-500 text-xs mt-1">{dish.restaurant}</p>
-                  <p className="text-orange-500 font-medium mt-1">{formatPrice(dish.price)}</p>
+                  <h3 className="font-medium text-gray-800 line-clamp-1">{dish.name}</h3>
+                  <p className="text-gray-500 text-xs mt-1 line-clamp-1">{dish.restaurant}</p>
+                  <p className="text-orange-500 font-semibold mt-2">{formatPrice(dish.price)}</p>
                 </div>
               </div>
             ))}
