@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { ROUTES } from "../constants";
 
-export const BottomNav = () => {
+export const BottomNav = ({isLoggedIn}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   const navItems = [
     { id: "home", icon: Home, label: "Home", path: ROUTES.HOME },

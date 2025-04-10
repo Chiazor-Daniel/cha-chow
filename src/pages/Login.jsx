@@ -3,6 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BottomNav } from "../components/BottomNav";
 import { ROUTES } from "../constants";
+import { FakeUsers } from "../../dummydata/fakeUsers";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -11,15 +12,25 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    // Simulate login process
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Login attempted with: " + email);
-    }, 1500);
+
+    FakeUsers.map((user) => {
+      if (user.email == email && user.password == password) {
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          alert("welcome  " + user.name);
+          navigate("/");
+          setIsLoggedIn(true);
+        }, 1500);
+      } else {
+        setErrMessage(true);
+      }
+    });
   };
 
   return (
@@ -31,7 +42,9 @@ export default function LoginPage() {
           </h1>
           <p className="mt-2 text-gray-600">Sign in to your account</p>
         </div>
-
+        {errMessage && (
+          <div className="bg-red-500 text-white p-2 ">incorrect details</div>
+        )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
@@ -167,7 +180,7 @@ export default function LoginPage() {
           </a>
         </p>
       </div>
-      <BottomNav />
+      <BottomNav isLoggedIn={isLoggedIn} />
     </div>
   );
 }
