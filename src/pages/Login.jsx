@@ -21,12 +21,9 @@ export default function LoginPage() {
     FakeUsers.map((user) => {
       if (user.email == email && user.password == password) {
         setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          alert("welcome  " + user.name);
-          navigate("/");
-          setIsLoggedIn(true);
-        }, 1500);
+        alert("welcome  " + user.name);
+        navigate("/");
+        setIsLoggedIn(true);
       } else {
         setErrMessage(true);
       }

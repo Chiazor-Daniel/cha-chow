@@ -10,6 +10,7 @@ import LoginPage from "./pages/login";
 import { CartProvider } from "./context/CartContext";
 import { ROUTES } from "./constants";
 import SignupPage from "./pages/SignUp";
+import FeaturedMeal from "./pages/FeaturedMeal";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
           <Route path={ROUTES.PROFILE} element={<Profile />} />
+          <Route path={ROUTES.FEATURED} element={<FeaturedMeal/>} />
           <Route path={ROUTES.PAYMENT} element={<FastPayProcess />} />
           <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
         </Routes>

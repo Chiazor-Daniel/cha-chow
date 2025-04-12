@@ -7,23 +7,24 @@ export const PRICE_RANGES = [
 ];
 
 export const CATEGORIES = [
-  { id: 'all', name: 'All', isActive: true },
-  { id: 'local', name: 'Local', isActive: false },
-  { id: 'fastfood', name: 'Fast Food', isActive: false },
-  { id: 'african', name: 'Sharp Snacks', isActive: false },
+  { id: "all", name: "All", isActive: true },
+  { id: "local", name: "Local", isActive: false },
+  { id: "fastfood", name: "Fast Food", isActive: false },
+  { id: "african", name: "Sharp Snacks", isActive: false },
 ];
 
 export const MENU_CATEGORIES = ["All", "Breakfast", "Lunch", "Dinner"];
 
-export const formatPrice = (price) => `₦${price.toLocaleString('en-NG')}`;
+export const formatPrice = (price) => `₦${price.toLocaleString("en-NG")}`;
 
 export const ROUTES = {
-  HOME: '/',
-  RESTAURANT: '/restaurant/:id',
-  ORDERS: '/orders',
-  HISTORY: '/history',
-  PROFILE: '/profile',
-  PAYMENT: '/ttF',
-  LOGIN:'/login',
-  SIGNUP:'/signup'
-}; 
+  HOME: "/",
+  RESTAURANT: "/restaurant/:id",
+  ORDERS: "/orders",
+  HISTORY: "/history",
+  PROFILE: "/profile",
+  PAYMENT: "/ttF",
+  LOGIN: "/login",
+  SIGNUP: "/signup",
+  FEATURED: "/featuredMeal/:id",
+};

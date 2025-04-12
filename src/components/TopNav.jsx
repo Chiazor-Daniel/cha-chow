@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useCart } from '../context/CartContext';
 import { ROUTES } from '../constants';
 
-export const TopNav = ({ showBack }) => {
+export const TopNav = ({ showBack, title }) => {
   const navigate = useNavigate();
   const { cartCount } = useCart();
 
@@ -19,7 +19,7 @@ export const TopNav = ({ showBack }) => {
                 size={24} 
                 onClick={() => navigate(ROUTES.HOME)} 
               />
-              <h1 className="text-xl font-semibold">Restaurant Details</h1>
+              <h1 className="text-xl font-semibold">{title}</h1>
             </div>
             <div className="flex items-center gap-4">
               <Heart className="text-gray-700 cursor-pointer" size={24} />

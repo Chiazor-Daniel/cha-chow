@@ -3,10 +3,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { ROUTES } from "../constants";
 
-export const BottomNav = ({isLoggedIn}) => {
+export const BottomNav = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
-
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 
   const navItems = [
