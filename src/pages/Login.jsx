@@ -13,7 +13,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ export default function LoginPage() {
         setIsLoading(true);
         alert("welcome  " + user.name);
         navigate("/");
-        setIsLoggedIn(true);
       } else {
         setErrMessage(true);
       }
@@ -114,11 +112,11 @@ export default function LoginPage() {
               </label>
             </div>
 
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-orange-500 hover:text-orange-600"
-              >
+            <div
+              className="text-sm cursor-pointer"
+              onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
+            >
+              <a className="font-medium text-orange-500 hover:text-orange-600">
                 Forgot your password?
               </a>
             </div>
@@ -139,7 +137,7 @@ export default function LoginPage() {
           </div>
         </form>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -165,19 +163,19 @@ export default function LoginPage() {
               Facebook
             </button>
           </div>
-        </div>
+        </div> */}
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-gray-600 ">
           Don't have an account?{" "}
           <a
             onClick={() => navigate(ROUTES.SIGNUP)}
-            className="font-medium text-orange-500 hover:text-orange-600"
+            className="font-medium text-orange-500 hover:text-orange-600 cursor-pointer"
           >
             Sign up
           </a>
         </p>
       </div>
-      <BottomNav isLoggedIn={isLoggedIn} />
+      {/* <BottomNav /> */}
     </div>
   );
 }

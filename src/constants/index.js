@@ -27,4 +27,5 @@ export const ROUTES = {
   LOGIN: "/login",
   SIGNUP: "/signup",
   FEATURED: "/featuredMeal/:id",
+  FORGOT_PASSWORD: "/forgot_password",
 };

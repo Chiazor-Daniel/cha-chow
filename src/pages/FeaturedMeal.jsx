@@ -45,9 +45,9 @@ const FeaturedMeal = () => {
             <p className="text-gray-600 mt-1">{dish.description}</p>
             <p className="text-orange-500 text-xl font-semibold mt-3">
               <span className=" text-gray-800 text-xl font-semibold pr-1 ">
-                Average Price: 
+                Average Price:
               </span>
-               ₦{dish.price}
+              ₦{dish.price}
             </p>
           </div>
         </div>
@@ -61,7 +61,7 @@ const FeaturedMeal = () => {
               restaurants.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200"
+                  className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer"
                 >
                   <img
                     src={item.image}

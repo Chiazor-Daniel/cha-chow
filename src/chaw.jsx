@@ -148,7 +148,7 @@ const RestaurantApp = () => {
               View All <ChevronRight size={16} />
             </button>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 cursor-pointer">
             {popularDishes.map((dish) => (
               <div
     
