@@ -1,10 +1,16 @@
-# React + Vite
+# cha-chow — Food Ordering App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **Vite + React (Tailwind)** food-ordering experience.
 
-Currently, two official plugins are available:
+- **RestaurantApp / RestaurantDetails** — browse restaurants and view menus
+- **CartContext / OrderItemCard** — cart management and order items
+- **Orders** — order tracking
+- **TopNav / BottomNav** — app navigation
+- `dummies/dummy_restaurants.js` — sample data
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# HCi-Project
-# cha-chow
+## Run
+
+```bash
+npm install
+npm run dev
+```
